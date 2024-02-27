@@ -1,4 +1,4 @@
-package dao;
+package com.negozio.dolcebannato.dao;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import database.Database;
@@ -10,8 +10,11 @@ public class DAOUtenti
 	
 	public Map<String,String> trovaUtente(String username, String password)
 	{
-		String query = "SELECT id,username,password FROM utenti\r\n"
-					 + "WHERE username = ? AND password = ?; ";
+		String query =  "select	*\r\n" + 
+						"from	utenti\r\n" + 
+						"where	username = ?\r\n" + 
+						"		and\r\n" + 
+						"       password = ?";
 		
 		Map<String,String> utente = db.row(query, username, password);
 		return utente;

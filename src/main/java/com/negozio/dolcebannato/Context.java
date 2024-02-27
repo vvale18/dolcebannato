@@ -2,10 +2,11 @@ package com.negozio.dolcebannato;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import dao.DAOAbbigliamento;
-import dao.DAOAccessori;
-import dao.DAOScarpe;
-import dao.DAOUtenti;
+import com.negozio.dolcebannato.dao.DAOAbbigliamento;
+import com.negozio.dolcebannato.dao.DAOAccessori;
+import com.negozio.dolcebannato.dao.DAOScarpe;
+import com.negozio.dolcebannato.dao.DAOUtenti;
+
 import database.Database;
 
 @Configuration

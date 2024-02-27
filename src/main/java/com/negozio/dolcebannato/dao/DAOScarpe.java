@@ -1,9 +1,10 @@
-package dao;
+package com.negozio.dolcebannato.dao;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import database.Database;
 
-public class DAOScarpe {
+public class DAOScarpe 
+{
 	
 	@Autowired
 	private Database db;
