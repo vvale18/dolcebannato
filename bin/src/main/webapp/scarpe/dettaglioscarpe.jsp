@@ -7,11 +7,10 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>SCARPE</title>
+		<title>Dettaglio</title>
 	</head>
 	<body>
-	<a href="/scarpe/dettaglioscarpe">INDIETRO</a>
-		ID SCARPA <%= s.get("idSca") %><br>
+		ID SCARPA <%= s.get("id") %><br>
 		TIPOLOGIA SCARPA <%= s.get("tipologia") %><br>
 		MARCA SCARPA <%= s.get("marca") %><br>
 		STILE SCARPA <%= s.get("stile") %><br>
@@ -21,5 +20,6 @@
 		DETTAGLI SCARPA <%= s.get("dettagli") %><br>
 		PREZZO SCARPA <%= s.get("prezzo") %><br>
 		QUANTITA SCARPA <%= s.get("qnt") %><br>
+		<a href="/scarpe/formod?id=<%= s.get("id")%>">Modifica</a>
 	</body>
 </html>

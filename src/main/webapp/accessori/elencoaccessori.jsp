@@ -18,7 +18,7 @@
 			<h2>Elenco accessori</h2>
 			
 			<% for(Map<String,String> m : lista){ %>
-			<%=m.get("id") %> -
+			<%=m.get("idAcc") %> -
 			<%=m.get("tipologia") %> -
 			<%=m.get("marca") %> -
 			<%=m.get("stile") %> -

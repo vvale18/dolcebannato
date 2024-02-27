@@ -18,7 +18,7 @@
 			<h2>Elenco abbigliamento</h2>
 			
 			<% for(Map<String,String> m : lista){ %>
-			<%=m.get("id") %> -
+			<%=m.get("idAbb") %> -
 			<%=m.get("tipologia") %> -
 			<%=m.get("marca") %> -
 			<%=m.get("stile") %> -

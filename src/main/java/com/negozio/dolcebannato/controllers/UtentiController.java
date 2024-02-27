@@ -48,6 +48,8 @@ public class UtentiController
 			HttpSession session = request.getSession(true);
 			session.setAttribute("utenteloggato",utente);
 		}
+		
+//		if(utente ) --> aggiungere metodo riconosci Admin
 		return "redirect:/";
 	}
 	

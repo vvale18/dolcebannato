@@ -7,12 +7,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>ACCESSORI</title>
+		<title>DETTAGLI</title>
 	</head>
 	<body>
-		<a href="/accessori/accessoridettaglio">INDIETRO</a>
-			<h2>Dettaglio</h2> <br><hr>
-			ID: <%= mappa.get("idAcc") %> <br>
+		<a href="/adminConsole/adminSchermata">INDIETRO</a>
+			<h2>ACCESSORI</h2> <br><hr>
+			ID: <%= mappa.get("IDAcc") %> <br>
 			TIPOLOGIA: <%= mappa.get("tipologia") %> <br>
 			MARCA: <%= mappa.get("marca") %> <br>
 			STILE: <%= mappa.get("stile") %> <br>
@@ -21,5 +21,8 @@
 			PREZZO: <%= mappa.get("prezzo") %> <br>
 			DISPONIBILITA: <%= mappa.get("qnt") %> <br>
 			<br>
+			<a href="/accessori/modifica?id=<%=mappa.get("IDAcc")%>">MODIFICA</a> - 
+			<a href="/accessori/elimina?id=<%=mappa.get("IDAcc")%>">ELIMINA</a> - 
+		
 	</body>
 </html>

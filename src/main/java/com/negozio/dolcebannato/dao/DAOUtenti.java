@@ -1,6 +1,8 @@
 package com.negozio.dolcebannato.dao;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 import database.Database;
 
 public class DAOUtenti
@@ -36,4 +38,11 @@ public class DAOUtenti
 								m.get("genere"),
 								m.get("isAdmin"));
 	}
+
+//	public boolean adminDetector (String username) {
+//		System.out.println("Questo tizio è admin: ");
+//		
+//	String query = "SELECT * FROM utenti WHERE isAdmin = 1;"
+//	}
+	
 }
