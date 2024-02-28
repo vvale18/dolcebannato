@@ -25,13 +25,13 @@ public class DAOAbbigliamento
 	}
 			// Cambiare ID sbagliati 
 	public boolean create(Map<String, String> e) {
-		String query = "insert into abbigliamento (tipologie,marca,stile,materiale,taglia,dettagli,prezzo) values (?,?,?,?,?,?,?)";
-		return db.update(query, e.get("tipologia"), e.get("marca"), e.get("stile"), e.get("materiale"), e.get("taglia"), e.get("dettagli"), e.get("prezzo"));
+		String query = "insert into abbigliamento (tipologia,marca,stile,materiale,taglia,dettagli,prezzo,qnt) values (?,?,?,?,?,?,?,?)";
+		return db.update(query, e.get("tipologia"), e.get("marca"), e.get("stile"), e.get("materiale"), e.get("taglia"), e.get("dettagli"), e.get("prezzo"), e.get("qnt"));
 	}
 	
 	public boolean update(Map<String, String> e) {
-		String query = "update into abbigliamento set tipologie =?, set marca=? , set stile=? ,set materiale=?,set taglia=?, set dettagli=?, set prezzo=? where id =?";
-		return db.update(query, e.get("tipologia"), e.get("marca"), e.get("stile"), e.get("materiale"), e.get("taglia"), e.get("dettagli"), e.get("prezzo"), e.get ("id"));
+		String query = "update abbigliamento set tipologie =?, set marca=? , set stile=? ,set materiale=?,set taglia=?, set dettagli=?, set prezzo=?, qnt=? where id =?";
+		return db.update(query, e.get("tipologia"), e.get("marca"), e.get("stile"), e.get("materiale"), e.get("taglia"), e.get("dettagli"), e.get("prezzo"), e.get("qnt"), e.get ("id"));
 	}
 	
 	public boolean delete(int id)

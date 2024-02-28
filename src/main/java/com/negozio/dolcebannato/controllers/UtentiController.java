@@ -53,8 +53,8 @@ public class UtentiController
 			return "redirect:/home.html";
 		}
 		else {
-			System.out.println("Utente1: " + utente.get("isAdmin"));
-			return "redirect:/adminElenco.html";
+			System.out.println("Admin: " + utente.get("isAdmin"));
+			return "redirect:../adminHome.html";
 		}
 
 	}

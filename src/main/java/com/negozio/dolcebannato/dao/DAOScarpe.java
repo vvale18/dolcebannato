@@ -26,11 +26,12 @@ public class DAOScarpe
 		String query = "select * from scarpe where id = ?";
 		return read(query, id + "").get(0);
 	}
+	
 	public boolean create(Map<String,String> m)
 	{
-		String query = "insert into scarpe (idsca; tipologia; marca; stile; materiale; numero; colore; dettagli; prezzo; qnt\r\n"
-				+ ") values (?,?,?,?,?,?,?)";
-		return db.update(query, m.get("idsca"), m.get("tipologia"), m.get("marca"), m.get("stile"), m.get("materiale"), m.get("numero"), m.get("colore"),
+		String query = "insert into scarpe (tipologia; marca; stile; materiale; numero; colore; dettagli; prezzo; qnt\r\n"
+				+ ") values (?,?,?,?,?,?,?,?,?)";
+		return db.update(query, m.get("tipologia"), m.get("marca"), m.get("stile"), m.get("materiale"), m.get("numero"), m.get("colore"),
 				m.get("dettagli"), m.get("prezzo"), m.get("qnt"));
 	}
 	
