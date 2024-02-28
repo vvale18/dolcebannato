@@ -14,7 +14,7 @@
 	</head>
 	<body>
 	
-	<!-- DA SISTEMARE TUTTO -->
+	<!-- DA SISTEMARE TUTTO rifare in toto!!!!!!!!!!!! -->
 	
 	
 	<h1><%=nome %></h1><br>

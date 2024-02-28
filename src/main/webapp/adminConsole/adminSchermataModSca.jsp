@@ -25,3 +25,5 @@
 		<a href="/scarpe/elimina?id=<%=mappa.get("IDAcc")%>">ELIMINA</a> -
 	</body>
 </html>
+
+<!-- MODIFICARE IN ELENCO -->

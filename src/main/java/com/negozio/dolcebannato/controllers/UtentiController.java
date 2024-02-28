@@ -44,16 +44,22 @@ public class UtentiController
 		System.out.println("Utente: " + utente);
 		if(utente != null)
 		{
-			System.out.println("LOGIN EFFETTUATO");
+			System.out.println("LOGIN EFFETTUATO" + utente);
 			HttpSession session = request.getSession(true);
 			session.setAttribute("utenteloggato",utente);
 		}
-		
-//		if(utente ) --> aggiungere metodo riconosci Admin
-		return "redirect:/";
+		if(utente.toString().contains("isadmin=0")) {
+			System.out.println("Utente: " + utente.get("isAdmin"));
+			return "redirect:/home.html";
+		}
+		else {
+			System.out.println("Utente1: " + utente.get("isAdmin"));
+			return "redirect:/adminElenco.html";
+		}
+
 	}
 	
-	private void deleteCookies(	HttpServletRequest request,
+	private void deleteCookies(HttpServletRequest request,
 								HttpServletResponse response)
 	{
 		Cookie[] cookies = request.getCookies();

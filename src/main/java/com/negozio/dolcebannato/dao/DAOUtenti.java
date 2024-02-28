@@ -38,11 +38,4 @@ public class DAOUtenti
 								m.get("genere"),
 								m.get("isAdmin"));
 	}
-
-//	public boolean adminDetector (String username) {
-//		System.out.println("Questo tizio è admin: ");
-//		
-//	String query = "SELECT * FROM utenti WHERE isAdmin = 1;"
-//	}
-	
 }
