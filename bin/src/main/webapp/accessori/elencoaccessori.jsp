@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
     
     <% String nome = (String) request.getAttribute("nomeAccessori"); %>
-<% List<Map<String,String>> lista = (List<Map<String,String>>) request.getAttribute("elencoaccessori"); %>  
+<% List<Map<String,String>> mappa = (List<Map<String,String>>) request.getAttribute("elencoaccessori"); %>  
  
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@
 			<a href="/">HOME</a>  -  <a href="/accessori/formnuovo">Inserisci nuovo Accessorio</a><br><br>
 			<h2>Elenco accessori</h2>
 			
-			<% for(Map<String,String> m : lista){ %>
+			<% for(Map<String,String> m : mappa){ %>
 			<%=m.get("id") %> -
 			<%=m.get("tipologia") %> -
 			<%=m.get("marca") %> -

@@ -18,14 +18,14 @@
 			<h2>Elenco accessori</h2>
 			
 			<% for(Map<String,String> m : lista){ %>
-			<%=m.get("idAcc") %> -
-			<%=m.get("tipologia") %> -
-			<%=m.get("marca") %> -
-			<%=m.get("stile") %> -
-			<%=m.get("materiale") %> -
-			<%=m.get("dettagli") %> -
-			<%=m.get("prezzo") %> -
-			<%=m.get("qnt") %> -
+			<%=m.get("idacc") %> - 
+			<%=m.get("tipologia") %> - 
+			<%=m.get("marca") %> - 
+			<%=m.get("stile") %> - 
+			<%=m.get("materiale") %> - 
+			<%=m.get("dettagli") %> - 
+			<%=m.get("prezzo") %> - 
+			<%=m.get("qnt") %>
 			<a href="/accessori/dettaglio?id=<%=m.get("id")%>" >Dettaglio</a>
 			<br>
 			<%} %>

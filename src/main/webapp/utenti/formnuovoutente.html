@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="../stile1.css">
 		<meta charset="UTF-8">
 		<title>Registrati</title>
 	</head>
 	<body>
+		<h1> DOLCE & BANNATO</h1>
+		<div class="container">
 		<h1>REGISTRATI</h1>
 		<hr><br>
-		<form action="registrati" method="get">
-			USERNAME <input type="text" name="username"><br>
-			NOME <input type="text" name="nome"><br>
-			COGNOME <input type="text" name="cognome"><br>
-			DATA DI NASCITA <input type="date" name="dob"><br>
-			MAIL <input type="text" name="mail"><br>
-			PASSWORD <input type="password" name="password"><br>
-			GENERE <select name="genere">
+		<div class="title">Inserisci i tuoi dati</div>
+			<form action="registrati" method="get">
+	<input type="text" name="user" placeholder="USERNAME">
+			<br>
+			 <input type="text" name="nome" placeholder="NOME">
+			 <br>
+			 <input type="text" name="cognome" placeholder="COGNOME">
+			<br>
+			Data di nascita<br>
+			 <input type="date" name="dob"> 
+			<br>
+			 <input type="text" name="mail" placeholder="EMAIL">
+			<br>
+			 <input type="password" name="password" placeholder="PASSWORD">
+			<br>
+			 <select name="genere" >
 						<option value="m">Uomo</option>
 						<option value="f">Donna</option>
-					</select><br><br>
-			RUOLO <input type="text" name="ruolo"><br>
+					</select> <br><br>
+			
+			
+			<div class="input-box">
 			<input type="submit" value="REGISTRATI">
+			</div>
 		</form>
+		</div>
 	</body>
 </html>

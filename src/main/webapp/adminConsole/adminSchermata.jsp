@@ -35,7 +35,7 @@
 			<%} %>
 			
 	<h1><%=nome %></h1><br>
-	<a href="/abbigliamento/formnuovo">Inserisci nuovo Abbigliamento</a><br><br>
+	<a href="/adminConsole/formnuovo">Inserisci nuovo Abbigliamento</a><br><br>
 			<h2>Elenco abbigliamento</h2>
 			
 			<% for(Map<String,String> m : lista){ %>
@@ -47,6 +47,7 @@
 			<%=m.get("taglia") %> -
 			<%=m.get("dettagli") %> -
 			<%=m.get("prezzo") %> -
+			<%=m.get("qnt") %> -
 			<a href="/adminConsole/adminSchermataModAbb?id=<%=m.get("id")%>" >Dettaglio</a>
 			<br>
 			<%} %>

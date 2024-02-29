@@ -23,19 +23,18 @@ public class DAOUtenti
 	}
 	
 	public boolean create(Map<String,String> m)
-	{
-		System.out.println("Nuovo utente: " + m);
-		String query = "INSERT INTO utenti\r\n"
-				+ "(username,nome,cognome,dob,mail,password,genere,isAdmin)\r\n"
-				+ "VALUES\r\n"
-				+ " (?,?,?,?,?,?,?,?);";
-		return db.update(query, m.get("username"),
-								m.get("nome"),
-								m.get("cognome"),
-								m.get("dob"),
-								m.get("mail"),
-								m.get("password"),
-								m.get("genere"),
-								m.get("isAdmin"));
-	}
+    {
+        System.out.println("Nuovo utente: " + m);
+        String query = "INSERT INTO utenti\r\n"
+                + "(username,nome,cognome,dob,mail,password,genere,isAdmin)\r\n"
+                + "VALUES\r\n"
+                + " (?,?,?,?,?,?,?,0);";
+        return db.update(query, m.get("username"),
+                                m.get("nome"),
+                                m.get("cognome"),
+                                m.get("dob"),
+                                m.get("mail"),
+                                m.get("password"),
+                                m.get("genere"));
+    }
 }

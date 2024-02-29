@@ -1,26 +1,44 @@
 package com.negozio.dolcebannato.controllers;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.negozio.dolcebannato.dao.DAOAbbigliamento;
 
+import database.Database;
+
+@Controller
 @RequestMapping("/abbigliamento")
 public class AbbigliamentoController 
 {
 		@Autowired
 		private DAOAbbigliamento da;
+		
+		@Autowired
+		private Database db;
 
 
 		@GetMapping("elencoabbigliamenti")
-		public String elencoaccessori(Model model)
+		public String elencoabbigliamento(HttpSession session, Model model)
 		{
 			model.addAttribute("nomeAbbigliamento","I nostri abbigliamenti");
 			model.addAttribute("elencoabbigliamenti",da.leggiTutti());
-			return "elencoabbigliamenti.jsp";
+			String tipoutente = (String) session.getAttribute("tipoutente");
+			System.out.println("Tipo utente: " + tipoutente);
+			String ris = "";
+			if(tipoutente.equalsIgnoreCase("admin"))
+				ris = "../adminConsole/adminSchermataModAbb.jsp";
+			else
+				ris = "elencoabbigliamenti.jsp";
+			System.out.println("Ris: " + ris);
+			return ris;
 		}
 
 		@GetMapping("formnuovo")
@@ -29,7 +47,7 @@ public class AbbigliamentoController
 			return "formnuovoabbigliamento.html";
 		}
 
-		@GetMapping("nuovoabbigliamento")
+		@PostMapping("nuovoabbigliamento")
 		public String nuovoabbigliamento(@RequestParam Map<String,String> inputform)
 		{
 			if(da.create(inputform))
@@ -45,7 +63,7 @@ public class AbbigliamentoController
 		}
 
 		@GetMapping("dettaglio")
-		public String dettaglioabbigliamento(@RequestParam("id") int idDettaglio, Model model)
+		public String dettaglioabbigliamento(@RequestParam("idabb") int idDettaglio, Model model)
 		{
 			Map<String,String> abbigliamento = da.cercaPerId(idDettaglio);
 			if(abbigliamento == null)
@@ -60,10 +78,12 @@ public class AbbigliamentoController
 			}
 		}
 
-		@GetMapping("formod")
-		public String formod(@RequestParam("id") int idMod, Model model)
+		@GetMapping("formodabb")
+		public String formod(@RequestParam("idabb") int idMod, Model model)
 		{
+			System.out.println("Sono qui");
 			Map<String,String> abbigliamento = da.cercaPerId(idMod);
+			System.out.println(abbigliamento);
 			if(abbigliamento == null)
 			{
 				return "redirect:elencoabbigliamenti";
@@ -71,13 +91,14 @@ public class AbbigliamentoController
 			else
 			{
 				model.addAttribute("abbigliamentomod",abbigliamento);
-				return "formod.jsp";
+				return "../adminConsole/formmodabb.jsp";
 			}
 		}
 
 		@GetMapping("aggiorna")
 		public String aggiorna(@RequestParam Map<String,String> abbigliamentomod)
 		{
+			System.out.println("Stai modificando " + abbigliamentomod);
 			if(da.update(abbigliamentomod))
 			{
 				System.out.println("Modifica avvenuta con successo " + abbigliamentomod);
@@ -85,12 +106,12 @@ public class AbbigliamentoController
 			}
 			else
 			{
-				return "redirect:/";
+				return "redirect:elencoabbigliamenti";
 			}	
 		}
 
 		@GetMapping("eliminaabbigliamento")
-		public String elimina(@RequestParam("id") int idElimina)
+		public String elimina(@RequestParam("idabb") int idElimina)
 		{
 			if(da.delete(idElimina))
 			{
@@ -98,7 +119,31 @@ public class AbbigliamentoController
 			}
 			else
 			{
-				return "redirect:/";
+				return "redirect:/adminHome";
 			}	
 		}
+		
+		@GetMapping("aggiungicarrello")
+		public String aggiungicarrello(@RequestParam("idabb") int idProdotto, HttpSession session)
+		{
+			System.out.println("idProdotto " + idProdotto);
+			Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+			System.out.println("Utente " + utente);
+			int idUtente = Integer.parseInt(utente.get("id"));
+			String query = "insert into carrello (idutente,idprodotto) values (?,?);";
+			String ris = "";
+			if(db.update(query,idUtente + "",idProdotto + ""))
+				ris = "Prodotto aggiunto al carrello";
+			else
+				ris = "Errore nell'aggiunta al carrello";
+			return ris;
+		}
+		
+//		@GetMapping("adminSchermataModAbb")
+//		public String adminelencoabbigliamento(Model model)
+//		{
+//			model.addAttribute("nomeAbbigliamento","I nostri abbigliamenti");
+//			model.addAttribute("elencoabbigliamenti",da.leggiTutti());
+//			return "adminSchermataModAbb.jsp";
+//		}
 }

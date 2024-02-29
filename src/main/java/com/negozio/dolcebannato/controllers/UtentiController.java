@@ -9,13 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.negozio.dolcebannato.dao.DAOUtenti;
 
 @Controller
 @RequestMapping("/utenti")
 public class UtentiController
-{
+{	
 	@Autowired
 	private DAOUtenti du;
 		
@@ -38,28 +37,70 @@ public class UtentiController
 	@GetMapping("formlogin")
 	public String login(	@RequestParam("user") String u,
 							@RequestParam("pass") String p,
-							HttpServletRequest request)
+							HttpSession session)
 	{
 		Map<String,String> utente = du.trovaUtente(u, p);
 		System.out.println("Utente: " + utente);
-		if(utente != null)
+		String tipo = "";
+		try
 		{
-			System.out.println("LOGIN EFFETTUATO" + utente);
-			HttpSession session = request.getSession(true);
-			session.setAttribute("utenteloggato",utente);
+			tipo = utente.get("isadmin");
 		}
-		if(utente.toString().contains("isadmin=0")) {
-			System.out.println("Utente: " + utente.get("isAdmin"));
-			return "redirect:/home.html";
+		catch(NullPointerException e)
+		{
+			tipo = "NON ASSEGNATO";
 		}
-		else {
-			System.out.println("Admin: " + utente.get("isAdmin"));
-			return "redirect:../adminHome.html";
+		System.out.println("Tipo di utente: " + tipo);
+		String ris = "";
+		switch(tipo.toLowerCase())
+		{
+			case "1"	:
+				System.out.println("Sei nel case 1");
+				session.setAttribute("tipoutente", "admin");
+				session.setAttribute("utente", utente);
+				ris = "redirect:../adminHome.html";
+			break;
+			case "0"	:
+				System.out.println("Sei nel case 0");
+				session.setAttribute("tipoutente", "utentenormale");
+				session.setAttribute("utente",utente);			
+				ris =  "redirect:/home.html";
+			break;
+			default :
+				System.out.println("Sei nel case DEFAULT");
+				session.setAttribute("tipoutente","errore");
+				ris = "redirect:/utenti/formlogin.html";	
+			break;
 		}
-
+		return ris;
+		
+//		if(utente != null)
+//		{
+//			System.out.println("LOGIN EFFETTUATO" + utente);
+//			HttpSession session = request.getSession(true);
+//			session.setAttribute("utenteloggato",utente);
+//		} 
+//		else 
+//		{		
+//			return "redirect:/utenti/formlogin.html";
+//		}
+//		
+//		if(utente.toString().contains("isAdmin=0")) {
+//			System.out.println("Utente: " + utente.get("isAdmin"));
+//			HttpSession session = request.getSession(true);
+//			session.setAttribute("utenteloggato",utente);			
+//			return "redirect:/home.html";
+//		}
+//		else 
+//		{
+//			System.out.println("Admin: " + utente.get("isAdmin"));
+//			HttpSession session = request.getSession(false);
+//			session.setAttribute("adminloggato", utente);
+//			return "redirect:../adminHome.html";
+//		}
 	}
 	
-	private void deleteCookies(HttpServletRequest request,
+	private void deleteCookies( HttpServletRequest request,
 								HttpServletResponse response)
 	{
 		Cookie[] cookies = request.getCookies();

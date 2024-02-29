@@ -1,30 +1,102 @@
-<%@page import="java.util.Map"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <% Map<String,String> mappa = (Map<String,String>) request.getAttribute("accessorio"); %>
+<% List<Map<String,String>> mappe = (List<Map<String,String>>) request.getAttribute("elencoaccessori"); %>
     
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>DETTAGLI</title>
-	</head>
-	<body>
-		<a href="/adminConsole/adminSchermata">INDIETRO</a>
-			<h2>ACCESSORI</h2> <br><hr>
-			ID: <%= mappa.get("IDAcc") %> <br>
-			TIPOLOGIA: <%= mappa.get("tipologia") %> <br>
-			MARCA: <%= mappa.get("marca") %> <br>
-			STILE: <%= mappa.get("stile") %> <br>
-			MATERIALE: <%= mappa.get("materiale") %> <br>
-			DETTAGLI: <%= mappa.get("dettagli") %> <br>
-			PREZZO: <%= mappa.get("prezzo") %> <br>
-			DISPONIBILITA: <%= mappa.get("qnt") %> <br>
-			<br>
-			<a href="/accessori/modifica?id=<%=mappa.get("IDAcc")%>">MODIFICA</a> - 
-			<a href="/accessori/elimina?id=<%=mappa.get("IDAcc")%>">ELIMINA</a> - 
-		
-	</body>
+<head>
+	<meta charset="UTF-8">
+	<title>DETTAGLI</title>
+	<style>
+		body
+		{
+			font-family: Arial, Verdana, Sans-serif;
+			font-size: 15px;	
+		}
+		table
+		{
+			border: solid 1px pink;
+			margin-top:5px;
+		}
+		table td
+		{
+			border: solid 1px green;
+			padding 5px;
+		}
+		table td:hover
+		{
+			background-color: green;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<a href="/adminConsole/adminSchermata">INDIETRO</a>
+		<h2>ACCESSORI</h2>
+		<hr>
+		<br>
+		<table>
+		<tr>
+			<td>
+				ID
+			</td>
+			<td>
+				TIPOLOGIA
+			</td>
+			<td>
+				MARCA
+			</td>
+			<td>
+				STILE
+			</td>
+			<td>
+				MATERIALE
+			</td>
+			<td>
+				DETTAGLI
+			</td>
+			<td>
+				PREZZO
+			</td>
+			<td>
+				QTA
+			</td>
+		</tr>
+		<% for(Map<String, String> m : mappe) {%>
+		<tr>
+			<td>
+				<%= m.get("idAcc") %>
+			</td>
+			<td>
+				<%= m.get("tipologia") %>
+			</td>
+			<td>
+				<%= m.get("marca") %>
+			</td>
+			<td>
+				<%=m.get("stile") %>
+			</td>
+			<td>
+				<%= m.get("materiale") %>
+			</td>
+			<td>
+				<%= m.get("dettagli") %>
+			</td>
+			<td>
+				<%= m.get("prezzo") %>
+			</td>
+			<td>
+				<%= m.get("qnt") %>
+			</td>
+			<td>
+				<a href="/accessori/formod?id=<%=m.get("idAcc")%>">MODIFICA</a>
+			</td>
+			<td>
+				<a href="/accessori/eliminaaccessorio?id=<%=m.get("idAcc")%>">ELIMINA</a>
+			</td>
+		</tr>
+		<%} %>
+		</table>
+</body>
 </html>
-
-<!-- MODIFICARE IN ELENCO -->
