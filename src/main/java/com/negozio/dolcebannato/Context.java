@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.negozio.dolcebannato.dao.DAOAbbigliamento;
 import com.negozio.dolcebannato.dao.DAOAccessori;
+import com.negozio.dolcebannato.dao.DAOCarrello;
 import com.negozio.dolcebannato.dao.DAOScarpe;
 import com.negozio.dolcebannato.dao.DAOUtenti;
 
@@ -16,6 +17,12 @@ public class Context
 	public Database db()
 	{
 		return new Database("dolcebannato");
+	}
+	
+	@Bean
+	public DAOCarrello dc()
+	{
+		return new DAOCarrello();
 	}
 	
 	@Bean

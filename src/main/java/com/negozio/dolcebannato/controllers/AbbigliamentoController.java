@@ -1,8 +1,7 @@
 package com.negozio.dolcebannato.controllers;
+import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.negozio.dolcebannato.dao.DAOAbbigliamento;
-
-import database.Database;
+import com.negozio.dolcebannato.dao.DAOCarrello;
 
 @Controller
 @RequestMapping("/abbigliamento")
@@ -22,12 +20,13 @@ public class AbbigliamentoController
 		private DAOAbbigliamento da;
 		
 		@Autowired
-		private Database db;
-
+		private DAOCarrello dc;
 
 		@GetMapping("elencoabbigliamenti")
 		public String elencoabbigliamento(HttpSession session, Model model)
 		{
+			System.out.println("Sei nel mapping elencoabbigliamenti");
+			System.out.println("Lista vestiti: " + da.leggiTutti().size());
 			model.addAttribute("nomeAbbigliamento","I nostri abbigliamenti");
 			model.addAttribute("elencoabbigliamenti",da.leggiTutti());
 			String tipoutente = (String) session.getAttribute("tipoutente");
@@ -36,7 +35,7 @@ public class AbbigliamentoController
 			if(tipoutente.equalsIgnoreCase("admin"))
 				ris = "../adminConsole/adminSchermataModAbb.jsp";
 			else
-				ris = "elencoabbigliamenti.jsp";
+				ris = "../abbigliamento/elencoabbigliamenti.jsp";
 			System.out.println("Ris: " + ris);
 			return ris;
 		}
@@ -130,13 +129,41 @@ public class AbbigliamentoController
 			Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
 			System.out.println("Utente " + utente);
 			int idUtente = Integer.parseInt(utente.get("id"));
-			String query = "insert into carrello (idutente,idprodotto) values (?,?);";
 			String ris = "";
-			if(db.update(query,idUtente + "",idProdotto + ""))
+			if(dc.aggiungiCarrello(idProdotto, idUtente))
 				ris = "Prodotto aggiunto al carrello";
 			else
 				ris = "Errore nell'aggiunta al carrello";
-			return ris;
+			System.out.println("Ris aggiungi al carrello: " + ris);
+			return "redirect:elencoabbigliamenti";
+		}
+		
+
+		@GetMapping("mostracarrello")
+		public String mostracarrello(HttpSession session, Model model)
+		{
+			Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+			System.out.println("Utente " + utente);
+			int idUtente = Integer.parseInt(utente.get("id"));
+			String ris = "";
+			List<Map<String,String>> prodottiutente  = dc.mostraCarrello(idUtente);
+			for(Map<String, String> m : prodottiutente)
+				System.out.println("Prodotto nel carrello " + m);
+			model.addAttribute("prodottinelcarrello",prodottiutente);
+			model.addAttribute("utente",utente);
+			return "carrello.jsp";
+		}
+		
+		@GetMapping("svuotacarrello")
+		public String svuotacarrello(HttpSession session)
+		{
+			Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+			int idUtente = Integer.parseInt(utente.get("id"));
+			if(dc.svuotaCarrello(idUtente))
+				System.out.println("Carrello vuoto");
+			else
+				System.out.println("Non è stato possibile svuotare il carrello");
+			return "redirect:elencoabbigliamenti";
 		}
 		
 //		@GetMapping("adminSchermataModAbb")
