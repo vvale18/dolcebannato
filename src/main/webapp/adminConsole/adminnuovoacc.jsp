@@ -19,6 +19,6 @@
 		DETTAGLI: <%= accessorio.get("dettagli") %> <br>
 		PREZZO: <%= accessorio.get("prezzo") %> <br>
 		<br>
-		<a href="/adminConsole/formodabb?id=<%=accessorio.get("id")%>">MODIFICA</a> - 
+		<a href="accessori/formnuovo?id=<%=accessorio.get("id")%>">NUOVO</a>
 	</body>
 </html>

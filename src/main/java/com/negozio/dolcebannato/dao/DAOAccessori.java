@@ -21,7 +21,7 @@ public class DAOAccessori
 	
 	public Map<String,String> cercaPerId(int id)
 	{
-		String query = "select * from accessori where id = ?";
+		String query = "select * from accessori where idacc = ?";
 		return read(query,id + "").get(0);
 	}
 	// Table Accessori			IDAcc; Tipologia; Marca; Stile; Materiale; Dettagli; Prezzo; Qnt
@@ -39,7 +39,15 @@ public class DAOAccessori
 	
 	public boolean update(Map<String,String> mappa)
 	{
-		String query ="update accessori set tipologia =?,marca=?,stile=?,materiale=?,dettagli=?,prezzo=?,qnt=? where id = ?";
+		String query ="update accessori\r\n"
+					+ "set tipologia = ?,\r\n"
+					+ "	marca = ?,\r\n"
+					+ "	stile = ?,\r\n"
+					+ "    materiale = ?,\r\n"
+					+ "    dettagli = ?,\r\n"
+					+ "    prezzo = ?,\r\n"
+					+ "    qnt = ?\r\n"
+					+ "where idacc = ?;";
 		return db.update(query, mappa.get("tipologia"), 
 								mappa.get("marca"),
 								mappa.get("stile"),
@@ -47,12 +55,12 @@ public class DAOAccessori
 								mappa.get("dettagli"),
 								mappa.get("prezzo"),
 								mappa.get("qnt"),
-								mappa.get("id"));
+								mappa.get("idacc"));
 	}
 	
 	public boolean delete(int id)
 	{
-		String query = "delete from accessori where id = ?";
+		String query = "delete from accessori where idacc = ?";
 		return db.update(query, id + "");
 	}
 }

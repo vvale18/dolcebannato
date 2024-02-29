@@ -32,7 +32,7 @@
 	</style>
 </head>
 <body>
-	<a href="/adminConsole/adminSchermata">INDIETRO</a>
+	<a href="../adminHome.html">INDIETRO</a>
 		<h2>ABBIGLIAMENTO</h2>
 		<hr>
 		<br>
@@ -106,4 +106,3 @@
 		</table>
 </body>
 </html>
-<!-- MODIFICARE IN ELENCO -->

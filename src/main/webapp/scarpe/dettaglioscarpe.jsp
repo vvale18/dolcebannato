@@ -10,7 +10,7 @@
 		<title>SCARPE</title>
 	</head>
 	<body>
-	<a href="/scarpe/dettaglioscarpe">INDIETRO</a>
+	<a href="/scarpe/elencoscarpe">INDIETRO</a>
 		ID SCARPA <%= s.get("idSca") %><br>
 		TIPOLOGIA SCARPA <%= s.get("tipologia") %><br>
 		MARCA SCARPA <%= s.get("marca") %><br>

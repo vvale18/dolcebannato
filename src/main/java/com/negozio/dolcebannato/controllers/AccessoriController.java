@@ -1,4 +1,5 @@
 package com.negozio.dolcebannato.controllers;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.negozio.dolcebannato.dao.DAOAccessori;
+import com.negozio.dolcebannato.dao.DAOCarrello;
 
 @Controller
 @RequestMapping("/accessori")
@@ -19,21 +21,26 @@ public class AccessoriController
 
 
 	@Autowired
-	private DAOAccessori da;
+	private DAOAccessori dac;
+	
+	@Autowired
+	private DAOCarrello dc;
 
 
 	@GetMapping("elencoaccessori")
 	public String elencoaccessori(HttpSession session, Model model)
 	{
+		System.out.println("Sei nel mapping elencoabbigliamenti");
+		System.out.println("Lista accessori: " + dac.leggiTutti().size());
 		model.addAttribute("nomeAccessori","I nostri accessori");
-		model.addAttribute("elencoaccessori",da.leggiTutti());
+		model.addAttribute("elencoaccessori",dac.leggiTutti());
 		String tipoutente = (String) session.getAttribute("tipoutente");
 		System.out.println("Tipo utente: " + tipoutente);
 		String ris = "";
 		if(tipoutente.equalsIgnoreCase("admin"))
 			ris = "../adminConsole/adminSchermataModAcc.jsp";
 		else
-			ris = "elencoaccessori.jsp";
+			ris = "../accessori/elencoaccessori.jsp";
 		System.out.println("Ris: " + ris);
 		return ris;
 	}
@@ -47,7 +54,7 @@ public class AccessoriController
 	@GetMapping("nuovoaccessorio")
 	public String nuovoaccessorio(@RequestParam Map<String,String> inputform)
 	{
-		if(da.create(inputform))
+		if(dac.create(inputform))
 		{
 			System.out.println("Inserimento avvenuto con successo");
 			return "redirect:elencoaccessori";
@@ -60,9 +67,9 @@ public class AccessoriController
 	}
 
 	@GetMapping("dettaglio")
-	public String dettaglioaccessorio(@RequestParam("idAcc") int idDettaglio, Model model)
+	public String dettaglioaccessorio(@RequestParam("idacc") int idDettaglio, Model model)
 	{
-		Map<String,String> accessorio = da.cercaPerId(idDettaglio);
+		Map<String,String> accessorio = dac.cercaPerId(idDettaglio);
 		if(accessorio == null)
 		{
 			System.out.println("accessorio non trovato " + accessorio);
@@ -75,10 +82,12 @@ public class AccessoriController
 		}
 	}
 
-	@GetMapping("formod")
-	public String formod(@RequestParam("idAcc") int idMod, Model model)
+	@GetMapping("formodacc")
+	public String formod(@RequestParam("idacc") int idMod, Model model)
 	{
-		Map<String,String> accessorio = da.cercaPerId(idMod);
+		System.out.println("Sono qui");
+		Map<String,String> accessorio = dac.cercaPerId(idMod);
+		System.out.println(accessorio);
 		if(accessorio == null)
 		{
 			return "redirect:elencoaccessori";
@@ -86,35 +95,79 @@ public class AccessoriController
 		else
 		{
 			model.addAttribute("accessoriomod",accessorio);
-			return "formod.jsp";
+			return "../adminConsole/formodacc.jsp";
 		}
 	}
 
 	@GetMapping("aggiorna")
 	public String aggiorna(@RequestParam Map<String,String> accessoriomod)
 	{
-		if(da.update(accessoriomod))
+		System.out.println("Stai modificando " + accessoriomod);
+		if(dac.update(accessoriomod))
 		{
 			System.out.println("Modifica avvenuta con successo " + accessoriomod);
 			return "redirect:elencoaccessori";
 		}
 		else
 		{
-			return "redirect:/";
+			return "redirect:elencoaccessori";
 		}	
 	}
 
 	@GetMapping("eliminaaccessorio")
-	public String elimina(@RequestParam("idAcc") int idElimina)
+	public String elimina(@RequestParam("idacc") int idElimina)
 	{
-		if(da.delete(idElimina))
+		if(dac.delete(idElimina))
 		{
 			return "redirect:elencoaccessori";
 		}
 		else
 		{
-			return "redirect:/";
+			return "redirect:/adminHome";
 		}	
+	}
+	
+	@GetMapping("aggiungicarrello")
+	public String aggiungicarrello(@RequestParam("idacc") int idProdotto, HttpSession session)
+	{
+		System.out.println("idProdotto " + idProdotto);
+		Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+		System.out.println("Utente " + utente);
+		int idUtente = Integer.parseInt(utente.get("id"));
+		String ris = "";
+		if(dc.aggiungiCarrello(idProdotto, idUtente))
+			ris = "Prodotto aggiunto al carrello";
+		else
+			ris = "Errore nell'aggiunta al carrello";
+		System.out.println("Ris aggiungi al carrello: " + ris);
+		return "redirect:elencoaccessori";
+	}
+	
+	@GetMapping("mostracarrello")
+	public String mostracarrello(HttpSession session, Model model)
+	{
+		Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+		System.out.println("Utente " + utente);
+		int idUtente = Integer.parseInt(utente.get("id"));
+		String ris = "";
+		List<Map<String,String>> prodottiutente  = dc.mostraCarrello(idUtente);
+		for(Map<String, String> m : prodottiutente)
+			System.out.println("Prodotto nel carrello " + m);
+		model.addAttribute("prodottinelcarrello",prodottiutente);
+		model.addAttribute("utente",utente);
+		return "carrello.jsp";
+	}
+	
+	@GetMapping("svuotacarrello")
+	public String svuotacarrello(HttpSession session)
+	{
+		Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+		int idUtente = Integer.parseInt(utente.get("id"));
+		if(dc.svuotaCarrello(idUtente))
+			System.out.println("Carrello vuoto");
+		else
+			System.out.println("Non è stato possibile svuotare il carrello");
+		return "redirect:elencoaccessori";
 	}
 
 }

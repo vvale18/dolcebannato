@@ -26,7 +26,7 @@ public class Context
 	}
 	
 	@Bean
-	public DAOAbbigliamento dab()
+	public DAOAbbigliamento da()
 	{
 		return new DAOAbbigliamento();
 	}

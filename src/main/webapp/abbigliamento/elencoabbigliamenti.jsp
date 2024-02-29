@@ -10,6 +10,28 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>ELENCO ABBIGLIAMENTO</title>
+		<style>
+		body
+		{
+			font-family: Arial, Verdana, Sans-serif;
+			font-size: 15px;	
+		}
+		table
+		{
+			border: solid 1px pink;
+			margin-top:5px;
+		}
+		table td
+		{
+			border: solid 1px green;
+			padding 5px;
+		}
+		table td:hover
+		{
+			background-color: green;
+			color: white;
+		}
+	</style>
 	</head>
 	<body>
 	<h1><%=nome %></h1><br>
@@ -17,19 +39,71 @@
 			<a href="mostracarrello">MOSTRA CARRELLO</a><br>
 			<a href="svuotacarrello">SVUOTA CARRELLO</a><br>
 			<h2>Elenco abbigliamento</h2>
-			
-			<% for(Map<String,String> m : lista){ %>
-			<%=m.get("idabb") %> - 
-			<%=m.get("tipologia") %> - 
-			<%=m.get("marca") %> - 
-			<%=m.get("stile") %> - 
-			<%=m.get("materiale") %> - 
-			<%=m.get("taglia") %> - 
-			<%=m.get("dettagli") %> - 
-			<%=m.get("prezzo") %> - 
-			<%=m.get("qnt") %>
+			<hr>
+			<br>
+			<table>
+				<tr>
+					<td>
+						ID
+					</td>
+					<td>
+						TIPOLOGIA
+					</td>
+					<td>
+						MARCA
+					</td>
+					<td>
+						STILE
+					</td>
+					<td>
+						MATERIALE
+					</td>
+					<td>
+						TAGLIA
+					</td>
+					<td>
+						DETTAGLI
+					</td>
+					<td>
+						PREZZO
+					</td>
+					<td>
+						QTA
+					</td>
+				</tr>
+				<% for(Map<String, String> m : lista) {%>
+				<tr>
+					<td>
+						<%= m.get("idabb") %>
+					</td>
+					<td>
+						<%= m.get("tipologia") %>
+					</td>
+					<td>
+						<%= m.get("marca") %>
+					</td>
+					<td>
+						<%=m.get("stile") %>
+					</td>
+					<td>
+						<%= m.get("materiale") %>
+					</td>
+					<td>
+						<%= m.get("taglia") %>
+					</td>
+					<td>
+						<%= m.get("dettagli") %>
+					</td>
+					<td>
+						<%= m.get("prezzo") %>
+					</td>
+					<td>
+						<%= m.get("qnt") %>
+					</td>
+					<td>	
 			<a href="aggiungicarrello?idabb=<%=m.get("idabb") %>">COMPRA</a> 
 			<br>
 			<%} %>
+			</table>
 	</body>
 </html>

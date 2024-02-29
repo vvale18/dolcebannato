@@ -1,4 +1,5 @@
 package com.negozio.dolcebannato.controllers;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -9,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import com.negozio.dolcebannato.dao.DAOCarrello;
 import com.negozio.dolcebannato.dao.DAOScarpe;
 
 
@@ -20,10 +21,13 @@ public class ScarpeController
 	@Autowired
 	private DAOScarpe ds;
 
+	@Autowired
+	private DAOCarrello dc;
 
 	@GetMapping("elencoscarpe")
 	public String elencoscarpe(HttpSession session, Model model)
 	{
+		System.out.println("Lista scarpe: " + ds.leggiTutti().size());
 		model.addAttribute("nomeScarpe","Le nostre scarpe");
 		model.addAttribute("elencoscarpe",ds.leggiTutti());
 		String tipoutente = (String) session.getAttribute("tipoutente");
@@ -32,7 +36,7 @@ public class ScarpeController
 		if(tipoutente.equalsIgnoreCase("admin"))
 			ris = "../adminConsole/adminSchermataModSca.jsp";
 		else
-			ris = "elencoscarpe.jsp";
+			ris = "../scarpe/elencoscarpe.jsp";
 		System.out.println("Ris: " + ris);
 		return ris;
 	}
@@ -40,7 +44,7 @@ public class ScarpeController
 	@GetMapping("formnuovo")
 	public String formnuovo()
 	{
-		return "formnuovascarpa.html";
+		return "formnuovescarpe.html";
 	}
 
 	@GetMapping("nuovascarpa")
@@ -59,7 +63,7 @@ public class ScarpeController
 	}
 
 	@GetMapping("dettaglio")
-	public String dettaglioscarpa(@RequestParam("id") int idDettaglio, Model model)
+	public String dettaglioscarpa(@RequestParam("idsca") int idDettaglio, Model model)
 	{
 		Map<String,String> scarpa = ds.cercaPerId(idDettaglio);
 		if(scarpa == null)
@@ -74,8 +78,8 @@ public class ScarpeController
 		}
 	}
 
-	@GetMapping("formod")
-	public String formod(@RequestParam("id") int idMod, Model model)
+	@GetMapping("formodsca")
+	public String formod(@RequestParam("idsca") int idMod, Model model)
 	{
 		Map<String,String> scarpa = ds.cercaPerId(idMod);
 		if(scarpa == null)
@@ -85,7 +89,7 @@ public class ScarpeController
 		else
 		{
 			model.addAttribute("scarpaomod",scarpa);
-			return "formod.jsp";
+			return "../adminConsole/formodsca.jsp";
 		}
 	}
 
@@ -99,12 +103,12 @@ public class ScarpeController
 		}
 		else
 		{
-			return "redirect:/";
+			return "redirect:elencoscarpe";
 		}	
 	}
 
-	@GetMapping("eleminascarpa")
-	public String elimina(@RequestParam("id") int idElimina)
+	@GetMapping("eliminascarpa")
+	public String elimina(@RequestParam("idsca") int idElimina)
 	{
 		if(ds.delete(idElimina))
 		{
@@ -112,7 +116,51 @@ public class ScarpeController
 		}
 		else
 		{
-			return "redirect:/";
+			return "redirect:/adminHome";
 		}	
+	}
+	
+	@GetMapping("aggiungicarrello")
+	public String aggiungicarrello(@RequestParam("idsca") int idProdotto, HttpSession session)
+	{
+		System.out.println("idProdotto " + idProdotto);
+		Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+		System.out.println("Utente " + utente);
+		int idUtente = Integer.parseInt(utente.get("id"));
+		String ris = "";
+		if(dc.aggiungiCarrello(idProdotto, idUtente))
+			ris = "Prodotto aggiunto al carrello";
+		else
+			ris = "Errore nell'aggiunta al carrello";
+		System.out.println("Ris aggiungi al carrello: " + ris);
+		return "redirect:elencoscarpe";
+	}
+	
+
+	@GetMapping("mostracarrello")
+	public String mostracarrello(HttpSession session, Model model)
+	{
+		Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+		System.out.println("Utente " + utente);
+		int idUtente = Integer.parseInt(utente.get("id"));
+		String ris = "";
+		List<Map<String,String>> prodottiutente  = dc.mostraCarrello(idUtente);
+		for(Map<String, String> m : prodottiutente)
+			System.out.println("Prodotto nel carrello " + m);
+		model.addAttribute("prodottinelcarrello",prodottiutente);
+		model.addAttribute("utente",utente);
+		return "carrello.jsp";
+	}
+	
+	@GetMapping("svuotacarrello")
+	public String svuotacarrello(HttpSession session)
+	{
+		Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+		int idUtente = Integer.parseInt(utente.get("id"));
+		if(dc.svuotaCarrello(idUtente))
+			System.out.println("Carrello vuoto");
+		else
+			System.out.println("Non è stato possibile svuotare il carrello");
+		return "redirect:elencoscarpe";
 	}
 }

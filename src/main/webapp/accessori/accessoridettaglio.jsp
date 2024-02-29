@@ -10,7 +10,7 @@
 		<title>ACCESSORI</title>
 	</head>
 	<body>
-		<a href="/accessori/accessoridettaglio">INDIETRO</a>
+		<a href="/accessori/elencoaccessori">INDIETRO</a>
 			<h2>Dettaglio</h2> <br><hr>
 			ID: <%= mappa.get("idAcc") %> <br>
 			TIPOLOGIA: <%= mappa.get("tipologia") %> <br>

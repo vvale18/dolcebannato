@@ -32,7 +32,7 @@
 	</style>
 </head>
 <body>
-	<a href="/adminConsole/adminSchermata">INDIETRO</a>
+	<a href="../adminHome.html">INDIETRO</a>
 		<h2>ACCESSORI</h2>
 		<hr>
 		<br>
@@ -66,7 +66,7 @@
 		<% for(Map<String, String> m : mappe) {%>
 		<tr>
 			<td>
-				<%= m.get("idAcc") %>
+				<%= m.get("idacc") %>
 			</td>
 			<td>
 				<%= m.get("tipologia") %>
@@ -90,10 +90,10 @@
 				<%= m.get("qnt") %>
 			</td>
 			<td>
-				<a href="/accessori/formod?id=<%=m.get("idAcc")%>">MODIFICA</a>
+				<a href="/accessori/formodacc?idacc=<%=m.get("idacc")%>">MODIFICA</a>
 			</td>
 			<td>
-				<a href="/accessori/eliminaaccessorio?id=<%=m.get("idAcc")%>">ELIMINA</a>
+				<a href="/accessori/eliminaaccessorio?idacc=<%=m.get("idacc")%>">ELIMINA</a>
 			</td>
 		</tr>
 		<%} %>

@@ -22,7 +22,7 @@ public class DAOAbbigliamento
 		String query = "select * from abbigliamento";
 		return read(query);
 	}
-			// Cambiare ID sbagliati 
+
 	public boolean create(Map<String, String> e) {
 		String query = "insert into abbigliamento (tipologia,marca,stile,materiale,taglia,dettagli,prezzo,qnt) values (?,?,?,?,?,?,?,?)";
 		return db.update(query, e.get("tipologia"), e.get("marca"), e.get("stile"), e.get("materiale"), e.get("taglia"), e.get("dettagli"), e.get("prezzo"), e.get("qnt"));
