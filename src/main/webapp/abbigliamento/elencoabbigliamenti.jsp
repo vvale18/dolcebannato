@@ -10,6 +10,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>ELENCO ABBIGLIAMENTO</title>
+		<link rel="stylesheet" href="..\stile1.css">
 		<style>
 		body
 		{
@@ -35,9 +36,9 @@
 	</head>
 	<body>
 	<h1><%=nome %></h1><br>
-			<a href="/">HOME</a><br>
+			<a href="../home.html">HOME</a><br>
 			<a href="mostracarrello">MOSTRA CARRELLO</a><br>
-			<a href="svuotacarrello">SVUOTA CARRELLO</a><br>
+			<a href="mostracarrellocompleto">MOSTRA CARRELLO COMPLETO</a><br>
 			<h2>Elenco abbigliamento</h2>
 			<hr>
 			<br>
@@ -101,7 +102,7 @@
 						<%= m.get("qnt") %>
 					</td>
 					<td>	
-			<a href="aggiungicarrello?idabb=<%=m.get("idabb") %>">COMPRA</a> 
+			<a href="aggiungicarrello?idabb=<%=m.get("idabb") %>">AGGIUNGI AL CARRELLO</a> 
 			<br>
 			<%} %>
 			</table>

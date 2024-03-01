@@ -37,9 +37,8 @@
 	<body>
 	
 	<h1><%=nome %></h1><br>
-			<a href="/">HOME</a><br>
+			<a href="../home.html">HOME</a><br>
 			<a href="mostracarrello">MOSTRA CARRELLO</a><br>
-			<a href="svuotacarrello">SVUOTA CARRELLO</a><br>
 			<h2>Elenco scarpe</h2>
 			<hr>
 			<br>
@@ -79,7 +78,7 @@
 			<% for(Map<String,String> m : lista){ %>
 			<tr>
 					<td>
-						<%= m.get("idabb") %>
+						<%= m.get("idsca") %>
 					</td>
 					<td>
 						<%= m.get("tipologia") %>
@@ -109,7 +108,7 @@
 						<%= m.get("qnt") %>
 					</td>
 					<td>
-			<a href="aggiungicarrello?idabb=<%=m.get("idsca") %>">COMPRA</a> 
+			<a href="aggiungicarrello?idsca=<%=m.get("idsca") %>">AGGIUNGI AL CARRELLO</a> 
 			<br>
 			<%} %>
 			</table>

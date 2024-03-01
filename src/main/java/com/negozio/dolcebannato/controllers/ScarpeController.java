@@ -58,7 +58,7 @@ public class ScarpeController
 		else
 		{
 			System.out.println("Errore nell'inserimento della scarpa " + inputform);
-			return "redirect:/";
+			return "redirect:/adminHome.html";
 		}
 	}
 
@@ -88,14 +88,31 @@ public class ScarpeController
 		}
 		else
 		{
-			model.addAttribute("scarpaomod",scarpa);
+			model.addAttribute("scarpamod",scarpa);
 			return "../adminConsole/formodsca.jsp";
 		}
 	}
 
+	//scarpamod
+	
+//	@GetMapping("aggiorna")
+//	public String aggiorna(@RequestParam Map<String,String> scarpamod)
+//	{
+//		if(ds.update(scarpamod))
+//		{
+//			System.out.println("Modifica avvenuta con successo " + scarpamod);
+//			return "redirect:elencoscarpe";
+//		}
+//		else
+//		{
+//			return "redirect:elencoscarpe";
+//		}	
+//	}
+	
 	@GetMapping("aggiorna")
 	public String aggiorna(@RequestParam Map<String,String> scarpamod)
 	{
+		System.out.println("Stai modificando " + scarpamod);
 		if(ds.update(scarpamod))
 		{
 			System.out.println("Modifica avvenuta con successo " + scarpamod);

@@ -57,7 +57,7 @@ public class AbbigliamentoController
 			else
 			{
 				System.out.println("Errore nell'inserimento dell' abbigliamento " + inputform);
-				return "redirect:/";
+				return "redirect:/adminHome.html";
 			}
 		}
 
@@ -152,6 +152,31 @@ public class AbbigliamentoController
 			model.addAttribute("prodottinelcarrello",prodottiutente);
 			model.addAttribute("utente",utente);
 			return "carrello.jsp";
+		}
+		
+		@GetMapping("mostracarrellocompleto")
+		public String mostracarrellocompleto(HttpSession session, Model model)
+		{
+			Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+			System.out.println("Utente " + utente);
+			int idUtente = Integer.parseInt(utente.get("id"));
+			String ris = "";
+			List<Map<String,String>> prodottiutente  = dc.mostracarrellocompleto(idUtente);
+			for(Map<String, String> m : prodottiutente)
+				System.out.println("Prodotto nel carrello " + m);
+			model.addAttribute("prodottinelcarrello",prodottiutente);
+			model.addAttribute("utente",utente);
+			return "carrello.jsp";
+		}
+		
+		@GetMapping("pagaora")
+		public String pagaora(HttpSession session, Model model)
+		{
+			Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+			System.out.println("Utente " + utente);
+			int idUtente = Integer.parseInt(utente.get("id"));
+			dc.svuotaCarrello(idUtente);
+			return "paginafine.html";
 		}
 		
 		@GetMapping("svuotacarrello")

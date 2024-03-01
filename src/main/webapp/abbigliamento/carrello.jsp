@@ -36,7 +36,7 @@
 	<h1>CARRELLO DI <%= utente.get("nome").toUpperCase() %></h1>
 		<hr>
 		<br>
-			<a href="/">HOME</a><br>
+			<a href="../home.html">HOME</a><br>
 			<a href="svuotacarrello">SVUOTA CARRELLO</a><br>
 			<h2>Elenco abbigliamento</h2>
 			
@@ -44,25 +44,21 @@
 			<tr>
 				<td>ID</td>
 				<td>DATA</td>
-				<td>MARCA</td>
-				<td>TAGLIA</td>
-				<td>PREZZO</td>
-				<td>IDPRODOTTO</td>
 				<td>IDUTENTE</td>
-				<td>IDABB</td>
+				<td>STILE</td>
+				<td>PREZZO</td>
 			</tr>
 				<% for(Map<String,String> m : lista){ %>
 				<tr>
 					<td><%=m.get("id") %></td>
 					<td><%=m.get("data") %></td>
-					<td><%=m.get("marca") %></td>
-					<td><%=m.get("taglia") %></td>
-					<td><%=m.get("prezzo") %></td>
-					<td><%=m.get("idprodotto") %></td>
 					<td><%=m.get("idutente") %></td>
-					<td><%=m.get("idabb") %></td>
+					<td><%=m.get("stile") %></td>
+					<td><%=m.get("prezzo") %></td>
 				</tr>
 				<%} %>
 			</table>
+			<br>
+			<h3>PREZZO TOTALE: <%=lista.get(0).get("prezzotot") %></h3>
 	</body>
 </html>

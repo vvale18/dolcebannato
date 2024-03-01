@@ -28,10 +28,11 @@ public class DAOScarpe
 	
 	public boolean create(Map<String,String> m)
 	{
-		String query = "insert into scarpe (tipologia; marca; stile; materiale; numero; colore; dettagli; prezzo; qnt\r\n"
-				+ ") values (?,?,?,?,?,?,?,?,?)";
-		return db.update(query, m.get("tipologia"),
-								m.get("marca"),
+		String query = "INSERT INTO scarpe\r\n"
+				 	 + "(tipologia,marca,stile,materiale,numero,colore,dettagli,prezzo,qnt)\r\n"
+					 + "VALUES\r\n"
+					 + "('scarpe',?,?,?,?,?,?,?,?);";
+		return db.update(query, m.get("marca"),
 								m.get("stile"),
 								m.get("materiale"),
 								m.get("numero"),
@@ -54,8 +55,7 @@ public class DAOScarpe
 					+ "prezzo = ?,\r\n"
 					+ "qnt = ?\r\n"
 					+ "where idsca = ?;";
-		return db.update(query, m.get("idsca"),
-								m.get("tipologia"),
+		return db.update(query, m.get("tipologia"),
 								m.get("marca"),
 								m.get("stile"),
 								m.get("materiale"),
@@ -63,7 +63,8 @@ public class DAOScarpe
 								m.get("colore"),
 								m.get("dettagli"),
 								m.get("prezzo"),
-								m.get("qnt"));
+								m.get("qnt"),
+								m.get("idsca"));
 	}
 	
 	public boolean delete(int id)

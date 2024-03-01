@@ -27,9 +27,8 @@ public class DAOAccessori
 	// Table Accessori			IDAcc; Tipologia; Marca; Stile; Materiale; Dettagli; Prezzo; Qnt
 	public boolean create(Map<String,String> mappa)
 	{
-		String query = "insert into accessori (tipologia, marca, stile, materiale, dettagli, prezzo, qnt) values (?,?,?,?,?,?,?)";
-		return db.update(query, mappa.get("tipologia"), 
-								mappa.get("marca"),
+		String query = "insert into accessori (tipologia, marca, stile, materiale, dettagli, prezzo, qnt) values ('Accessori',?,?,?,?,?,?)";
+		return db.update(query,	mappa.get("marca"),
 								mappa.get("stile"),
 								mappa.get("materiale"),
 								mappa.get("dettagli"),
@@ -43,10 +42,10 @@ public class DAOAccessori
 					+ "set tipologia = ?,\r\n"
 					+ "	marca = ?,\r\n"
 					+ "	stile = ?,\r\n"
-					+ "    materiale = ?,\r\n"
-					+ "    dettagli = ?,\r\n"
-					+ "    prezzo = ?,\r\n"
-					+ "    qnt = ?\r\n"
+					+ " materiale = ?,\r\n"
+					+ " dettagli = ?,\r\n"
+					+ " prezzo = ?,\r\n"
+					+ " qnt = ?\r\n"
 					+ "where idacc = ?;";
 		return db.update(query, mappa.get("tipologia"), 
 								mappa.get("marca"),
