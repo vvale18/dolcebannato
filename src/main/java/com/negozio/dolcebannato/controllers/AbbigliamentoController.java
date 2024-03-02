@@ -184,7 +184,7 @@ public class AbbigliamentoController
 			System.out.println("Utente " + utente);
 			int idUtente = Integer.parseInt(utente.get("id"));
 			dc.svuotaCarrello(idUtente);
-			return "paginafine.html";
+			return "mostracarrello";
 		}
 		
 		@GetMapping("svuotacarrello")

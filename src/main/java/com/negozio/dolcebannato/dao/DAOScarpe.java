@@ -58,7 +58,7 @@ public class DAOScarpe
 	public boolean update(Map<String,String> m)
 	{
 		String query ="update scarpe\r\n"
-					+ "marca = ?,\r\n"
+					+ "set marca = ?,\r\n"
 					+ "stile = ?,\r\n"
 					+ "materiale = ?,\r\n"
 					+ "numero = ?,\r\n"

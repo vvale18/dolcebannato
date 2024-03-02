@@ -62,5 +62,17 @@
 			</table>
 			<br>
 			<h3>PREZZO TOTALE: <%=somma %>€</h3>
+			<br>
+			<a  id="btnOrdine" href="pagaora">PAGA ORA</a>	
+			<script>
+		    // Seleziona il pulsante
+		    var btnOrdine = document.getElementById('btnOrdine');
+
+		    // Aggiungi un gestore di eventi per il click sul pulsante
+		    btnOrdine.addEventListener('click', function() {
+		      // Mostra l'alert con il messaggio desiderato
+		      alert('Ordine Effettuato, Grazie');
+		    });
+		  </script>
 	</body>
 </html>

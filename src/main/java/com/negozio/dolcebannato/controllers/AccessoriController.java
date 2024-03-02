@@ -166,6 +166,16 @@ public class AccessoriController
 		return "carrello.jsp";
 	}
 	
+	@GetMapping("pagaora")
+	public String pagaora(HttpSession session, Model model)
+	{
+		Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+		System.out.println("Utente " + utente);
+		int idUtente = Integer.parseInt(utente.get("id"));
+		dc.svuotaCarrello(idUtente);
+		return "mostracarrello";
+	}
+	
 	@GetMapping("svuotacarrello")
 	public String svuotacarrello(HttpSession session)
 	{

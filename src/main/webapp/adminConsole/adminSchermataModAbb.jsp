@@ -39,9 +39,6 @@
 		<table>
 		<tr>
 			<td>
-				ID
-			</td>
-			<td>
 				MARCA
 			</td>
 			<td>
@@ -65,9 +62,6 @@
 		</tr>
 		<% for(Map<String, String> m : mappe) {%>
 		<tr>
-			<td>
-				<%= m.get("idabb") %>
-			</td>
 			<td>
 				<%= m.get("marca") %>
 			</td>

@@ -53,7 +53,7 @@ public class DAOAccessori
 	public boolean update(Map<String,String> mappa)
 	{
 		String query ="update accessori\r\n"
-					+ "	marca = ?,\r\n"
+					+ "set	marca = ?,\r\n"
 					+ "	stile = ?,\r\n"
 					+ " materiale = ?,\r\n"
 					+ " dettagli = ?,\r\n"
