@@ -37,8 +37,7 @@
 	<body>
 	<h1><%=nome %></h1><br>
 			<a href="../home.html">HOME</a><br>
-			<a href="mostracarrello">MOSTRA CARRELLO</a><br>
-			<a href="mostracarrellocompleto">MOSTRA CARRELLO COMPLETO</a><br>
+			<a href="mostracarrello">MOSTRA CARRELLO COMPLETO</a><br>
 			<h2>Elenco abbigliamento</h2>
 			<hr>
 			<br>
@@ -46,9 +45,6 @@
 				<tr>
 					<td>
 						ID
-					</td>
-					<td>
-						TIPOLOGIA
 					</td>
 					<td>
 						MARCA
@@ -76,9 +72,6 @@
 				<tr>
 					<td>
 						<%= m.get("idabb") %>
-					</td>
-					<td>
-						<%= m.get("tipologia") %>
 					</td>
 					<td>
 						<%= m.get("marca") %>

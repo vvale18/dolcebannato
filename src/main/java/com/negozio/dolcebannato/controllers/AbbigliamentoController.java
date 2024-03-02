@@ -139,22 +139,22 @@ public class AbbigliamentoController
 		}
 		
 
-		@GetMapping("mostracarrello")
-		public String mostracarrello(HttpSession session, Model model)
-		{
-			Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
-			System.out.println("Utente " + utente);
-			int idUtente = Integer.parseInt(utente.get("id"));
-			String ris = "";
-			List<Map<String,String>> prodottiutente  = dc.mostraCarrello(idUtente);
-			for(Map<String, String> m : prodottiutente)
-				System.out.println("Prodotto nel carrello " + m);
-			model.addAttribute("prodottinelcarrello",prodottiutente);
-			model.addAttribute("utente",utente);
-			return "carrello.jsp";
-		}
+//		@GetMapping("mostracarrello")
+//		public String mostracarrello(HttpSession session, Model model)
+//		{
+//			Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
+//			System.out.println("Utente " + utente);
+//			int idUtente = Integer.parseInt(utente.get("id"));
+//			String ris = "";
+//			List<Map<String,String>> prodottiutente  = dc.mostraCarrello(idUtente);
+//			for(Map<String, String> m : prodottiutente)
+//				System.out.println("Prodotto nel carrello " + m);
+//			model.addAttribute("prodottinelcarrello",prodottiutente);
+//			model.addAttribute("utente",utente);
+//			return "carrello.jsp";
+//		}
 		
-		@GetMapping("mostracarrellocompleto")
+		@GetMapping("mostracarrello")
 		public String mostracarrellocompleto(HttpSession session, Model model)
 		{
 			Map<String, String> utente = (Map<String, String>) session.getAttribute("utente");
@@ -162,8 +162,16 @@ public class AbbigliamentoController
 			int idUtente = Integer.parseInt(utente.get("id"));
 			String ris = "";
 			List<Map<String,String>> prodottiutente  = dc.mostracarrellocompleto(idUtente);
+//			int i = 0;
 			for(Map<String, String> m : prodottiutente)
+			{
 				System.out.println("Prodotto nel carrello " + m);
+//				if(m.get("stile") == null || m.get("stile") == "")
+//				{
+//					prodottiutente.remove(i);
+//				}
+//				i++;
+			}
 			model.addAttribute("prodottinelcarrello",prodottiutente);
 			model.addAttribute("utente",utente);
 			return "carrello.jsp";

@@ -11,7 +11,6 @@
 	</head>
 	<body>
 		ID: <%= a.get("id") %> <br>
-		TIPOLOGIA: <%= a.get("tipologia") %> <br>
 		MARCA: <%= a.get("marca") %> <br>
 		STILE: <%= a.get("stile") %> <br>
 		MATERIALE: <%= a.get("materiale") %> <br>

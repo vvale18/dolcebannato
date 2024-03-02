@@ -8,7 +8,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>ELENCO ACCESSORI</title>
+		<title>ELENCO ABBIGLIAMENTO</title>
 		<style>
 		body
 		{
@@ -36,31 +36,31 @@
 	<h1>CARRELLO DI <%= utente.get("nome").toUpperCase() %></h1>
 		<hr>
 		<br>
-			<a href="/">HOME</a><br>
+			<a href="../home.html">HOME</a><br>
 			<a href="svuotacarrello">SVUOTA CARRELLO</a><br>
-			<h2>Elenco accessori</h2>
+			<h2>Elenco abbigliamento</h2>
 			
 			<table>
 			<tr>
-				<td>ID</td>
 				<td>DATA</td>
-				<td>MARCA</td>
-				<td>PREZZO</td>
-				<td>IDPRODOTTO</td>
 				<td>IDUTENTE</td>
-				<td>IDACC</td>
+				<td>STILE</td>
+				<td>PREZZO</td>
 			</tr>
+				<% double somma = 0; %>
 				<% for(Map<String,String> m : lista){ %>
+				<% if(m.get("stile") != null) {%>
+				<% somma += Double.parseDouble(m.get("prezzo")); %>
 				<tr>
-					<td><%=m.get("id") %></td>
 					<td><%=m.get("data") %></td>
-					<td><%=m.get("marca") %></td>
-					<td><%=m.get("prezzo") %></td>
-					<td><%=m.get("idprodotto") %></td>
 					<td><%=m.get("idutente") %></td>
-					<td><%=m.get("idacc") %></td>
+					<td><%=m.get("stile") %></td>
+					<td><%=m.get("prezzo") %></td>
 				</tr>
 				<%} %>
+				<%} %>
 			</table>
+			<br>
+			<h3>PREZZO TOTALE: <%=somma %>€</h3>
 	</body>
 </html>

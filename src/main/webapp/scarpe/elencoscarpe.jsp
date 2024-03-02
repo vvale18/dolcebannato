@@ -48,9 +48,6 @@
 						ID
 					</td>
 					<td>
-						TIPOLOGIA
-					</td>
-					<td>
 						MARCA
 					</td>
 					<td>
@@ -79,9 +76,6 @@
 			<tr>
 					<td>
 						<%= m.get("idsca") %>
-					</td>
-					<td>
-						<%= m.get("tipologia") %>
 					</td>
 					<td>
 						<%= m.get("marca") %>

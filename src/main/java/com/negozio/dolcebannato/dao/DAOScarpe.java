@@ -1,6 +1,9 @@
 package com.negozio.dolcebannato.dao;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.negozio.dolcebannato.utils.DBUtils;
+
 import database.Database;
 
 public class DAOScarpe 
@@ -8,6 +11,9 @@ public class DAOScarpe
 	
 	@Autowired
 	private Database db;
+	
+	@Autowired
+	private DBUtils du;
 	
 	public List<Map<String,String>> read(String query, String... params)
 	{
@@ -28,10 +34,17 @@ public class DAOScarpe
 	
 	public boolean create(Map<String,String> m)
 	{
-		String query = "INSERT INTO scarpe\r\n"
-				 	 + "(tipologia,marca,stile,materiale,numero,colore,dettagli,prezzo,qnt)\r\n"
-					 + "VALUES\r\n"
-					 + "('scarpe',?,?,?,?,?,?,?,?);";
+		du.updateSequence();
+		String query = "INSERT INTO scarpe values ((\r\n"
+					+ "SELECT max(id) as nextVal FROM seq), \r\n"
+					+ "?, \r\n"
+					+ "?, \r\n"
+					+ "?, \r\n"
+					+ "?, \r\n"
+					+ "?, \r\n"
+					+ "?, \r\n"
+					+ "?, \r\n"
+					+ "? );";
 		return db.update(query, m.get("marca"),
 								m.get("stile"),
 								m.get("materiale"),
@@ -45,7 +58,6 @@ public class DAOScarpe
 	public boolean update(Map<String,String> m)
 	{
 		String query ="update scarpe\r\n"
-					+ "set tipologia = ?,\r\n"
 					+ "marca = ?,\r\n"
 					+ "stile = ?,\r\n"
 					+ "materiale = ?,\r\n"
@@ -55,8 +67,7 @@ public class DAOScarpe
 					+ "prezzo = ?,\r\n"
 					+ "qnt = ?\r\n"
 					+ "where idsca = ?;";
-		return db.update(query, m.get("tipologia"),
-								m.get("marca"),
+		return db.update(query, m.get("marca"),
 								m.get("stile"),
 								m.get("materiale"),
 								m.get("numero"),

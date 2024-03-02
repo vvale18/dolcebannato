@@ -1,12 +1,18 @@
 package com.negozio.dolcebannato.dao;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.negozio.dolcebannato.utils.DBUtils;
+
 import database.Database;
 
 public class DAOAccessori 
 {
 	@Autowired
 	private Database db;
+	
+	@Autowired
+	private DBUtils du;
 	
 	public List<Map<String,String>> read (String query, String... params)
 	{
@@ -27,7 +33,15 @@ public class DAOAccessori
 	// Table Accessori			IDAcc; Tipologia; Marca; Stile; Materiale; Dettagli; Prezzo; Qnt
 	public boolean create(Map<String,String> mappa)
 	{
-		String query = "insert into accessori (tipologia, marca, stile, materiale, dettagli, prezzo, qnt) values ('Accessori',?,?,?,?,?,?)";
+		du.updateSequence();
+		String query = "INSERT INTO accessori values ((\r\n"
+					+ "SELECT max(id) as nextVal FROM seq), \r\n"
+					+ "?, \r\n"
+					+ "?, \r\n"
+					+ "?, \r\n"
+					+ "?, \r\n"
+					+ "?, \r\n"
+					+ "? );";
 		return db.update(query,	mappa.get("marca"),
 								mappa.get("stile"),
 								mappa.get("materiale"),
@@ -39,7 +53,6 @@ public class DAOAccessori
 	public boolean update(Map<String,String> mappa)
 	{
 		String query ="update accessori\r\n"
-					+ "set tipologia = ?,\r\n"
 					+ "	marca = ?,\r\n"
 					+ "	stile = ?,\r\n"
 					+ " materiale = ?,\r\n"
@@ -47,8 +60,7 @@ public class DAOAccessori
 					+ " prezzo = ?,\r\n"
 					+ " qnt = ?\r\n"
 					+ "where idacc = ?;";
-		return db.update(query, mappa.get("tipologia"), 
-								mappa.get("marca"),
+		return db.update(query, mappa.get("marca"),
 								mappa.get("stile"),
 								mappa.get("materiale"),
 								mappa.get("dettagli"),

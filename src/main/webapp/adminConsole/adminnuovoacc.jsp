@@ -11,7 +11,6 @@
 	</head>
 	<body>
 		ID: <%= accessorio.get("id") %> <br>
-		TIPOLOGIA: <%= accessorio.get("tipologia") %> <br>
 		MARCA: <%= accessorio.get("marca") %> <br>
 		STILE: <%= accessorio.get("stile") %> <br>
 		MATERIALE: <%= accessorio.get("materiale") %> <br>

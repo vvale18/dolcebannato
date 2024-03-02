@@ -19,24 +19,24 @@ public class DAOCarrello
 						+ "	(date(now()),?,?);";
 		return db.update(query, idprodotto + "", idutente + "");
 	}
-	
-	public List<Map<String,String>> mostraCarrello(int idutente)
-	{
-		//String query = "select	* from carrello where idutente = ?;";
-		String query = "select 	carrello.id as \"id\",\r\n"
-						+ "		carrello.data as \"data\",\r\n"
-						+ "        abbigliamento.marca as \"marca\",\r\n"
-						+ "        abbigliamento.taglia as \"taglia\",\r\n"
-						+ "        abbigliamento.prezzo as \"prezzo\",\r\n"
-						+ "        carrello.idutente as \"idutente\",\r\n"
-						+ "        carrello.idprodotto as \"idprodotto\",\r\n"
-						+ "        abbigliamento.idabb as \"idabb\"\r\n"
-						+ "from	carrello inner join abbigliamento\r\n"
-						+ "		on carrello.idprodotto = abbigliamento.idAbb\r\n"
-						+ "where	carrello.idutente = ?;";
-		return db.rows(query,idutente + "");
-	}
-	
+//	
+//	public List<Map<String,String>> mostraCarrello(int idutente)
+//	{
+//		//String query = "select	* from carrello where idutente = ?;";
+//		String query = "select 	carrello.id as \"id\",\r\n"
+//						+ "		carrello.data as \"data\",\r\n"
+//						+ "        abbigliamento.marca as \"marca\",\r\n"
+//						+ "        abbigliamento.taglia as \"taglia\",\r\n"
+//						+ "        abbigliamento.prezzo as \"prezzo\",\r\n"
+//						+ "        carrello.idutente as \"idutente\",\r\n"
+//						+ "        carrello.idprodotto as \"idprodotto\",\r\n"
+//						+ "        abbigliamento.idabb as \"idabb\"\r\n"
+//						+ "from	carrello inner join abbigliamento\r\n"
+//						+ "		on carrello.idprodotto = abbigliamento.idAbb\r\n"
+//						+ "where	carrello.idutente = ?;";
+//		return db.rows(query,idutente + "");
+//	}
+//	
 	public List<Map<String,String>> mostracarrellocompleto(int idutente)
 	{
 		double prezzotot = 0;
@@ -64,7 +64,7 @@ public class DAOCarrello
 			for(Map<String,String> m : lista)
 			{
 				Map<String,String> nuova = new HashMap<String,String>();
-				nuova.put("id",m.get("id"));
+				nuova.put("id",m.get("idprodotto"));
 				nuova.put("data",m.get("data"));
 				nuova.put("idutente",m.get("idutente"));
 				if(!m.get("stile").equalsIgnoreCase("vuoto"))
@@ -86,7 +86,7 @@ public class DAOCarrello
 	
 	public boolean svuotaCarrello(int idutente)
 	{
-		String query = "delete from carrello where idutente = ? and id > 0;";
+		String query = "delete from carrello where idutente = ? and idprodotto > 0;";
 		return db.update(query, idutente + "");
 	}
 }

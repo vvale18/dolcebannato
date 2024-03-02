@@ -42,23 +42,25 @@
 			
 			<table>
 			<tr>
-				<td>ID</td>
 				<td>DATA</td>
 				<td>IDUTENTE</td>
 				<td>STILE</td>
 				<td>PREZZO</td>
 			</tr>
+				<% double somma = 0; %>
 				<% for(Map<String,String> m : lista){ %>
+				<% if(m.get("stile") != null) {%>
+				<% somma += Double.parseDouble(m.get("prezzo")); %>
 				<tr>
-					<td><%=m.get("id") %></td>
 					<td><%=m.get("data") %></td>
 					<td><%=m.get("idutente") %></td>
 					<td><%=m.get("stile") %></td>
 					<td><%=m.get("prezzo") %></td>
 				</tr>
 				<%} %>
+				<%} %>
 			</table>
 			<br>
-			<h3>PREZZO TOTALE: <%=lista.get(0).get("prezzotot") %></h3>
+			<h3>PREZZO TOTALE: <%=somma %>€</h3>
 	</body>
 </html>
